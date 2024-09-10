@@ -1,0 +1,326 @@
+/* Hapiuk Theme */
+body.hapiuk {
+    background-image: url('/static/images/hapiuk-background.jpg'); 
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center center; /* Center the background image */
+    background-repeat: no-repeat; /* Don't repeat the image */
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+}
+
+/* Console Content */
+.console {
+    padding: 10px;
+    font-size: 14px;
+    overflow-y: auto;
+    height: 400px;
+    background-color: #252525; /* Dark gray, not black */
+    color: #e0e0e0; /* Light gray font color for good contrast */
+    font-family: 'Roboto Mono', monospace; /* Modern monospace font */
+}
+
+.console-window {
+    background-color: #252525; /* Dark gray, not black */
+}
+
+/* Window Header */
+.window-header {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    padding: 8px 16px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Window Title */
+.window-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Window Controls */
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.window-btn.minimize-btn { background-color: #f1c40f; }
+.window-btn.maximize-btn { background-color: #2ecc71; }
+.window-btn.close-btn { background-color: #e74c3c; }
+
+.window-btn:hover {
+    opacity: 0.8;
+}
+
+/* Taskbar Styles */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Start Button Styles */
+#start-button {
+    background: #2b2b2b; /* Slightly darker background for the button */
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border-radius: 0;
+    width: 40px; /* Square button matching taskbar height */
+    height: 40px;
+    transition: background-color 0.2s, filter 0.2s; /* Add filter transition */
+    background-image: url('/static/images/hapiuk-logo.png'); /* Load logo */
+    background-size: contain; /* Contain logo within the button */
+    background-repeat: no-repeat; /* No repeat */
+    background-position: center; /* Center the logo */
+}
+
+/* Hover effect */
+#start-button:hover {
+    background-color: #383838; /* Darken the button on hover */
+    filter: brightness(0.9); /* Slightly dim the entire button including the logo */
+}
+/* Start Button Icon */
+#start-button-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill the entire button */
+    display: block; /* Ensure image fills the button */
+}
+
+/* Start Menu Styles */
+.start-menu {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    background-color: #2b2b2b; /* Matches the Hapiuk theme */
+    border: 1px solid #222;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 200px; /* Adjust width for a compact tile layout */
+}
+
+/* Start Menu Buttons - Tile Style */
+.start-menu button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px; /* Space between tiles */
+    background-color: #3a3a3a; /* Darker shade to differentiate from the background */
+    border: none;
+    border-radius: 4px;
+    color: #e0e0e0; /* Light text color */
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left; /* Align text to the left for a modern look */
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+.start-menu button:hover {
+    background-color: #4a4a4a; /* Lighten the tile on hover */
+    transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+/* Icon inside the button */
+.start-menu button::before {
+    content: ''; /* Use CSS for icons if needed, otherwise keep empty */
+    display: inline-block;
+    width: 20px; /* Icon size */
+    height: 20px;
+    background-size: cover; /* Fit the icon inside */
+    background-repeat: no-repeat; /* Prevent repeat */
+    background-position: center; /* Center the icon */
+}
+
+/* Specific icons for different styles */
+.start-menu button:nth-child(1)::before { /* Windows 98 */
+    background-image: url('/static/images/win98-logo.png');
+}
+.start-menu button:nth-child(2)::before { /* Windows XP */
+    background-image: url('/static/images/xp-logo.png');
+}
+.start-menu button:nth-child(3)::before { /* Linux Terminal */
+    background-image: url('/static/images/terminal-logo.png');
+}
+.start-menu button:nth-child(4)::before { /* Hapiuk */
+    background-image: url('/static/images/hapiuk-logo.png');
+}
+.start-menu button:nth-child(5)::before { /* Apple */
+    background-image: url('/static/images/apple-logo.png');
+}
+
+/* Remove last margin on last button */
+.start-menu button:last-child {
+    margin-bottom: 0;
+}
+
+/* Minimized Windows Container */
+.minimized-windows-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Add spacing between the start button and minimized tabs */
+}
+
+/* Minimized Tab Button */
+.minimized-window-tab {
+    background: #444;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 2px;
+    padding: 5px 10px;
+    margin-right: 5px; /* Spacing between minimized tabs */
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* Active tab (slightly highlighted) */
+.minimized-window-tab.active {
+    background-color: #555; /* Slightly lighter shade for active */
+    opacity: 1;
+}
+
+/* Inactive tab (default dimmed look) */
+.minimized-window-tab.inactive {
+    background-color: #444; /* Dim color for inactive */
+    opacity: 0.7;
+}
+
+.minimized-window-tab:hover {
+    background-color: #666; /* Slight hover effect */
+}
+
+/* Taskbar Clock and Calendar Styles */
+.taskbar-clock {
+    margin-left: auto;
+    margin-right: 2.5%;
+    color: #fff;
+    padding: 0 10px;
+    font-family: 'Roboto Mono', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333;
+    border-left: 1px solid #555;
+    border-right: 1px solid #555;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.taskbar-clock:hover {
+    background-color: #444;
+}
+
+.taskbar-clock .clock-time {
+    margin-right: 5px;
+}
+
+.taskbar-clock .clock-date {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Calendar Popup */
+.calendar-popup {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 50px;
+    width: 240px; /* Adjust width to fit the screen */
+    background: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.calendar-header {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+    font-weight: bold;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
+    gap: 3px;
+    text-align: center;
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+.calendar-day {
+    font-weight: bold;
+    color: #ccc;
+}
+
+.calendar-date {
+    padding: 6px;
+    border-radius: 4px;
+    background: #2a2a2a;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Color codes for availability */
+.calendar-date.available {
+    background-color: #3a7d44; /* Green for available */
+}
+
+.calendar-date.limited {
+    background-color: #e2b23a; /* Orange for limited availability */
+}
+
+.calendar-date.unavailable {
+    background-color: #c0392b; /* Red for unavailable */
+}
+
+.calendar-date:hover {
+    background-color: #3a3a3a;
+}
+
+/* Ensure calendar doesn't fall off the screen */
+@media screen and (max-width: 768px) {
+    .calendar-popup {
+        left: 10px; /* Adjust positioning for smaller screens */
+        right: auto; /* Ensure it fits within viewport */
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

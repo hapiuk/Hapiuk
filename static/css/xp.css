@@ -1,0 +1,326 @@
+/* Windows XP Theme */
+body.xp {
+    background-image: url('/static/images/xp-background.jpg'); 
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Console Content */
+.console {
+    padding: 10px;
+    font-size: 14px;
+    overflow-y: auto;
+    height: 400px;
+    background-color: #000; /* Light blue-gray */
+    color: #fff; /* Dark font color for contrast */
+    font-family: 'Tahoma', sans-serif; /* XP's default font */
+}
+
+.console-window {
+    background-color: #000; /* Classic light gray */
+}
+
+/* Window Header */
+.window-header {
+    background-color: #3b6ea5;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Window Title */
+.window-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Window Controls */
+.window-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.window-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.window-btn.minimize-btn { background-color: #f3f3f3; }
+.window-btn.maximize-btn { background-color: #d3e2f1; }
+.window-btn.close-btn { background-color: #d50000; }
+
+.window-btn:hover {
+    opacity: 0.8;
+}
+
+/* Taskbar Styles */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to top, #4b92db, #3a7ac4); /* XP blue gradient */
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Start Button Styles */
+#start-button {
+    background: #3a7d34; /* Green for XP's Start button */
+    border: 1px solid #2a5d24;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border-radius: 3px;
+    width: 40px;
+    height: 40px;
+    transition: background-color 0.2s, filter 0.2s;
+    background-image: url('/static/images/xp-logo.png'); /* Load logo */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Hover effect */
+#start-button:hover {
+    background-color: #32782d; /* Darken on hover */
+    filter: brightness(0.9);
+}
+
+/* Start Button Icon */
+#start-button-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Start Menu Styles */
+.start-menu {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+    background-color: #f3f3f3; /* Lighter background for XP */
+    border: 1px solid #999;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 220px;
+}
+
+/* Start Menu Buttons */
+.start-menu button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #e0e0e0; /* Soft gray to match XP */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #000;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-menu button:hover {
+    background-color: #d0d0d0; /* Lighten on hover */
+    transform: scale(1.02);
+}
+
+/* Icon inside the button */
+.start-menu button::before {
+    content: ''; 
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Specific icons for different styles */
+.start-menu button:nth-child(1)::before { 
+    background-image: url('/static/images/win98-logo.png');
+}
+.start-menu button:nth-child(2)::before { 
+    background-image: url('/static/images/xp-logo.png');
+}
+.start-menu button:nth-child(3)::before { 
+    background-image: url('/static/images/terminal-logo.png');
+}
+.start-menu button:nth-child(4)::before { 
+    background-image: url('/static/images/hapiuk-logo.png');
+}
+.start-menu button:nth-child(5)::before { 
+    background-image: url('/static/images/apple-logo.png');
+}
+
+/* Remove last margin on last button */
+.start-menu button:last-child {
+    margin-bottom: 0;
+}
+
+/* Minimized Windows Container */
+.minimized-windows-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+/* Minimized Tab Button */
+.minimized-window-tab {
+    background: #4b92db;
+    color: #fff;
+    border: 1px solid #3771a1;
+    border-radius: 2px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* Active tab (slightly highlighted) */
+.minimized-window-tab.active {
+    background-color: #3771a1;
+    opacity: 1;
+}
+
+/* Inactive tab (default dimmed look) */
+.minimized-window-tab.inactive {
+    background-color: #4b92db;
+    opacity: 0.7;
+}
+
+.minimized-window-tab:hover {
+    background-color: #5badd5;
+}
+
+/* Taskbar Clock and Calendar Styles */
+.taskbar-clock {
+    margin-left: auto;
+    margin-right: 2.5%;
+    color: #fff;
+    padding: 0 10px;
+    font-family: 'Tahoma', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3a7ac4;
+    border-left: 1px solid #4b92db;
+    border-right: 1px solid #4b92db;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.taskbar-clock:hover {
+    background-color: #4b92db;
+}
+
+.taskbar-clock .clock-time {
+    margin-right: 5px;
+}
+
+.taskbar-clock .clock-date {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Calendar Popup */
+.calendar-popup {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 50px;
+    width: 240px;
+    background: #f3f3f3;
+    border: 1px solid #999;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.calendar-header {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    text-align: center;
+    font-size: 12px;
+    color: #000;
+}
+
+.calendar-day {
+    font-weight: bold;
+    color: #555;
+}
+
+.calendar-date {
+    padding: 6px;
+    border-radius: 4px;
+    background: #d0d0d0;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Color codes for availability */
+.calendar-date.available {
+    background-color: #7ec97e;
+}
+
+.calendar-date.limited {
+    background-color: #e7b760;
+}
+
+.calendar-date.unavailable {
+    background-color: #c06060;
+}
+
+.calendar-date:hover {
+    background-color: #ccc;
+}
+
+/* Ensure calendar doesn't fall off the screen */
+@media screen and (max-width: 768px) {
+    .calendar-popup {
+        left: 10px;
+        right: auto;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

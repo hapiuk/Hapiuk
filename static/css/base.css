@@ -1,0 +1,269 @@
+/* Base Styles */
+body {
+    background-color: #1e1e1e;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Taskbar Styles - Always on top */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Below the console window when fullscreen */
+}
+
+/* Ensure Taskbar Buttons are Clickable */
+.taskbar button,
+.taskbar .minimized-window-tab {
+    z-index: 1001; /* Above the console */
+    cursor: pointer;
+}
+
+/* Minimized Tab */
+.minimized-window-tab {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* Active and Inactive Styles */
+.minimized-window-tab.active {
+    background-color: #555; /* Slightly different for active */
+}
+
+.minimized-window-tab.inactive {
+    opacity: 0.7; /* Dimmed for inactive */
+}
+
+/* Hover Effect for Taskbar and Buttons */
+#start-button:hover,
+.minimized-window-tab:hover {
+    filter: brightness(0.9); /* Slightly dim the button when hovered */
+}
+
+/* Console Window Styles */
+.console-window {
+    display: flex;
+    flex-direction: column; /* Use column direction to stack header and console */
+    min-width: 800px;
+    min-height: 400px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, border-radius 0.3s;
+}
+
+.console {
+    flex: 1; /* Allows the console to fill remaining space */
+    padding: 10px;
+    font-size: 14px;
+    overflow-y: auto;
+    background-color: #252525; /* Ensure background color is visible */
+    color: #e0e0e0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Fullscreen Mode for Console - Ensures Taskbar Remains Visible */
+.console-window.fullscreen {
+    width: 100vw !important; /* Full viewport width */
+    height: calc(100vh - 40px) !important; /* Full viewport height minus taskbar */
+    top: 0 !important;
+    left: 0 !important;
+    position: fixed !important;
+    z-index: 1000; /* Ensure it's above other content */
+    border-radius: 0; /* Remove border radius for fullscreen */
+    background-color: #252525; /* Ensure console background remains consistent */
+}
+
+
+.console-window.dragging {
+    transition: none; /* Disable transitions during drag */
+    box-shadow: none; /* Disable box-shadow during drag */
+    will-change: transform, left, top; /* Optimize dragging performance */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .console-window {
+        top: 5%; /* Adjust position for better fit */
+        left: 5%; /* Adjust position for better fit */
+        width: 90vw; /* Set width to fit within the viewport */
+        height: 80vh; /* Set height to fit within the viewport */
+        transform: none; /* Remove translate to fit within view */
+    }
+
+    .window-header {
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+    .console {
+        height: calc(80vh - 60px); /* Adjust console height considering header and input */
+    }
+
+    .input-line {
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+    #console-input {
+        font-size: 16px; /* Increase font size for better readability on mobile */
+    }
+
+    .taskbar {
+        height: 50px; /* Adjust taskbar height for smaller screens */
+    }
+}
+
+.window-header {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+}
+
+.window-title {
+    margin-left: 10px;
+}
+
+.window-controls {
+    display: flex;
+}
+
+.window-btn {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.window-btn:hover {
+    background-color: #555;
+}
+
+.console {
+    padding: 10px;
+    font-size: 14px;
+    overflow-y: auto;
+    height: 400px;
+}
+
+.input-line {
+    display: flex;
+    margin-top: 10px;
+}
+
+.prompt {
+    margin-right: 10px;
+}
+
+#console-input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    flex: 1;
+}
+
+/* Resize handles */
+.resize-handle {
+    position: absolute;
+    background: transparent;
+    z-index: 1001; /* Ensure handles are above other elements */
+    pointer-events: auto; /* Allow events only when resizing */
+}
+
+/* Handles on edges */
+.resize-handle.top, .resize-handle.bottom {
+    height: 5px;
+    width: 100%;
+    cursor: ns-resize;
+}
+
+.resize-handle.left, .resize-handle.right {
+    width: 5px;
+    height: 100%;
+    cursor: ew-resize;
+}
+
+/* Handles on corners */
+.resize-handle.top-left, .resize-handle.top-right,
+.resize-handle.bottom-left, .resize-handle.bottom-right {
+    width: 10px;
+    height: 10px;
+    cursor: nwse-resize;
+}
+
+.resize-handle.top-left {
+    top: 0;
+    left: 0;
+}
+
+.resize-handle.top-right {
+    top: 0;
+    right: 0;
+}
+
+.resize-handle.bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.resize-handle.bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+.resize-handle.top {
+    top: 0;
+    left: 0;
+}
+
+.resize-handle.bottom {
+    bottom: 0;
+    left: 0;
+}
+
+.resize-handle.left {
+    top: 0;
+    left: 0;
+}
+
+.resize-handle.right {
+    top: 0;
+    right: 0;
+}
+
+/* Additional CSS in base.css */
+.dos-fullscreen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: none;
+    background-color: black;
+}

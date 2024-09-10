@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hapiuk Console</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>Console</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <!-- Theme CSS Files -->
+    <link rel="stylesheet" href="/static/css/win98.css" id="theme-win98" disabled>
+    <link rel="stylesheet" href="/static/css/xp.css" id="theme-xp" disabled>
+    <link rel="stylesheet" href="/static/css/terminal.css" id="theme-terminal" disabled>
+    <link rel="stylesheet" href="/static/css/hapiuk.css" id="theme-hapiuk"> <!-- Hapiuk is enabled by default -->
+    <link rel="stylesheet" href="/static/css/apple.css" id="theme-apple" disabled>
+    <link rel="stylesheet" href="/static/css/dos.css" id="theme-dos" disabled>
+
 </head>
-<body>
-    <div class="console-window hapiuk" id="console-window">
+<body class="hapiuk"> <!-- Apply Hapiuk class to body -->
+    <div class="console-window" id="console-window">
         <div class="window-header" id="window-header">
-            <span class="window-title">Hapiuk Console</span>
+            <span class="window-title">Console</span>
             <div class="window-controls">
                 <button class="window-btn minimize-btn" onclick="minimizeConsole()">
                     <svg width="12" height="12" viewBox="0 0 12 12">
@@ -31,7 +39,7 @@
             </div>
         </div>
         <div class="console" id="console">
-            <div id="output">Welcome to Hapiuk. Type "help" to begin.</div>
+            <div id="output">Welcome to the console. Type "help" to begin.</div>
             <div class="input-line">
                 <span class="prompt">$</span>
                 <input type="text" id="console-input" autofocus>
@@ -46,7 +54,50 @@
         <div class="resize-handle bottom-left"></div>
         <div class="resize-handle bottom-right"></div>
     </div>
-    <div id="taskbar" class="taskbar" onclick="restoreConsole()">Hapiuk Console</div>
+
+    <!-- Taskbar and Start Button -->
+    <div class="taskbar" id="taskbar">
+        <button id="start-button">
+            <span class="start-text"></span>
+        </button>
+        <div id="start-menu" class="start-menu">
+            <!-- Menu items for different styles -->
+            <button onclick="changeStyle('win98')">Windows 98</button>
+            <button onclick="changeStyle('xp')">Windows XP</button>
+            <button onclick="changeStyle('terminal')">Linux Terminal</button>
+            <button onclick="changeStyle('hapiuk')">Hapiuk</button>
+            <button onclick="changeStyle('apple')">Apple</button>
+        </div>
+        <div class="minimized-windows-container" id="minimized-windows-container"></div>
+        <!-- Taskbar Clock -->
+        <div class="taskbar-clock" id="taskbar-clock">
+            <span class="clock-time" id="clock-time">12:00</span>
+            <span class="clock-date" id="clock-date">01/01/2024</span>
+            <div class="calendar-popup" id="calendar-popup">
+                <!-- Calendar content will be dynamically generated or styled here -->
+                <div class="calendar-header">
+                    <span>September 2024</span>
+                </div>
+                <div class="calendar-grid">
+                    <!-- Simple calendar grid for display purposes -->
+                    <div class="calendar-day">Sun</div>
+                    <div class="calendar-day">Mon</div>
+                    <div class="calendar-day">Tue</div>
+                    <div class="calendar-day">Wed</div>
+                    <div class="calendar-day">Thu</div>
+                    <div class="calendar-day">Fri</div>
+                    <div class="calendar-day">Sat</div>
+                    <!-- Calendar dates -->
+                    <div class="calendar-date">1</div>
+                    <div class="calendar-date">2</div>
+                    <!-- Add all dates of the month -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="/static/script.js"></script>
 </body>
 </html>

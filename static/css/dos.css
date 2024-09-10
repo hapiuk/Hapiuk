@@ -1,0 +1,85 @@
+/* DOS Theme */
+body.dos {
+    background-color: black; /* Full black background */
+    overflow: hidden; /* Prevent any scrolling */
+}
+
+.dos-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none; /* Remove border to mimic DOS style */
+    box-shadow: none; /* Remove any shadow */
+    overflow: hidden; /* Ensure no scrollbars */
+}
+
+/* Hide all non-console elements */
+.taskbar, 
+#start-button, 
+.start-menu, 
+.minimized-windows-container, 
+.taskbar-clock {
+    display: none; /* Hide taskbar and all related components */
+}
+
+/* Fullscreen Console */
+.console-window {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: none; /* Remove borders */
+    border-radius: 0; /* Remove any rounded corners */
+    background-color: black; /* Classic DOS black background */
+}
+
+/* Console Content */
+.console {
+    padding: 20px; /* Extra padding for a classic terminal look */
+    font-size: 18px; /* Enlarged font for readability */
+    color: #00ff00; /* Green text color to emulate CRT monitors */
+    font-family: 'Courier New', Courier, monospace; /* Classic monospace font */
+    overflow-y: hidden; /* No scrollbar */
+    height: 100%; /* Full height to fill the console */
+}
+
+/* Hide Window Header */
+.window-header {
+    display: none; /* Remove the window header */
+}
+
+/* Fullscreen Calendar and Clock Styles */
+.calendar-popup, .taskbar-clock {
+    display: none; /* Hidden for DOS mode */
+}
+
+/* Additional Styles for Fullscreen DOS Experience */
+.console .input-line {
+    display: flex;
+    margin-top: 10px;
+    font-size: 18px; /* Match console text size */
+}
+
+.prompt {
+    margin-right: 10px;
+    color: #00ff00; /* Match prompt color to console text */
+}
+
+/* No Resize or Dragging */
+.resize-handle {
+    display: none; /* Disable resizing */
+}
+
+/* Animation and Keyframes */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.console::after {
+    content: '_';
+    animation: blink 1s step-end infinite; /* Blinking cursor */
+    color: #00ff00; /* Cursor matches console text color */
+}
