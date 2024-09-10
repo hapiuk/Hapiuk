@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hapiuk Console</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="console-window hapiuk" id="console-window">
+        <div class="window-header" id="window-header">
+            <span class="window-title">Hapiuk Console</span>
+            <div class="window-controls">
+                <button class="window-btn minimize-btn" onclick="minimizeConsole()">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect y="10" width="12" height="2" fill="black"></rect>
+                    </svg>
+                </button>
+                <button class="window-btn maximize-btn" onclick="maximizeConsole()">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect x="1" y="1" width="10" height="10" fill="none" stroke="black" stroke-width="1.5"></rect>
+                    </svg>
+                </button>
+                <button class="window-btn close-btn" onclick="closeConsole()">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="1.5"></line>
+                        <line x1="11" y1="1" x2="1" y2="11" stroke="black" stroke-width="1.5"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="console" id="console">
+            <div id="output">Welcome to Hapiuk. Type "help" to begin.</div>
+            <div class="input-line">
+                <span class="prompt">$</span>
+                <input type="text" id="console-input" autofocus>
+            </div>
+        </div>
+        <div class="resize-handle top"></div>
+        <div class="resize-handle bottom"></div>
+        <div class="resize-handle left"></div>
+        <div class="resize-handle right"></div>
+        <div class="resize-handle top-left"></div>
+        <div class="resize-handle top-right"></div>
+        <div class="resize-handle bottom-left"></div>
+        <div class="resize-handle bottom-right"></div>
+    </div>
+    <div id="taskbar" class="taskbar" onclick="restoreConsole()">Hapiuk Console</div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+/* Base Styles */
+body {
+    background-color: #1e1e1e;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.console-window {
+    min-width: 800px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50px;
+    transition: box-shadow 0.3s, border-radius 0.3s;
+}
+
+.console-window.dragging {
+    transition: none; /* Disable transitions during drag */
+    box-shadow: none; /* Disable box-shadow during drag */
+    will-change: transform, left, top; /* Optimize dragging performance */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .console-window {
+        top: 5%; /* Adjust position for better fit */
+        left: 5%; /* Adjust position for better fit */
+        width: 90vw; /* Set width to fit within the viewport */
+        height: 80vh; /* Set height to fit within the viewport */
+        transform: none; /* Remove translate to fit within view */
+    }
+
+    .window-header {
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+    .console {
+        height: calc(80vh - 60px); /* Adjust console height considering header and input */
+    }
+
+    .input-line {
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+    #console-input {
+        font-size: 16px; /* Increase font size for better readability on mobile */
+    }
+}
+
+.window-header {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+}
+
+.window-title {
+    margin-left: 10px;
+}
+
+.window-controls {
+    display: flex;
+}
+
+.window-btn {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.window-btn:hover {
+    background-color: #555;
+}
+
+.console {
+    padding: 10px;
+    font-size: 14px;
+    overflow-y: auto;
+    height: 400px;
+}
+
+.input-line {
+    display: flex;
+    margin-top: 10px;
+}
+
+.prompt {
+    margin-right: 10px;
+}
+
+#console-input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    flex: 1;
+}
+
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #444;
+    padding: 5px 10px;
+    color: #fff;
+    cursor: pointer;
+    display: none; /* Hidden until minimized */
+}
+
+/* Windows 98 Theme */
+.win98 {
+    background-color: #c0c0c0; /* Classic grey background */
+    color: black;
+    border: 2px solid #808080; /* Grey border for the window */
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    position: absolute;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 0; /* Sharp edges typical of 98 */
+    box-shadow: none; /* Flat look, no shadow */
+    transition: all 0.3s;
+}
+
+.win98 .window-header {
+    background-color: #000080; /* Classic 98 blue top bar */
+    color: white; /* White text on header */
+    border: 1px solid #c0c0c0; /* Subtle grey border for the top bar */
+    padding: 4px 8px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.win98 .window-title {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.win98 .window-controls {
+    display: flex;
+    gap: 2px; /* Small gap between buttons */
+}
+
+.win98 .window-btn {
+    width: 18px; /* Consistent button size */
+    height: 18px;
+    background: #ece9d8; /* Light grey button background */
+    border: 1px solid #999; /* 3D effect for buttons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.win98 .window-btn svg {
+    fill: black; /* Black icon for contrast */
+}
+
+.win98 .window-btn:hover {
+    background-color: #dcdcdc; /* Subtle hover effect */
+}
+
+/* XP Theme */
+.xp {
+    background-color: #000; /* Black background for the console */
+    color: #fff; /* White text for high contrast */
+    border: 2px solid #4a76a8; /* Blue border specific to XP */
+    font-family: 'Tahoma', Arial, sans-serif;
+}
+
+.xp .window-header {
+    background-color: #3b6ea5; /* Classic XP blue */
+    color: #fff; /* White text on header */
+    border-bottom: 1px solid #28597a;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.xp .window-title {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.xp .window-controls {
+    display: flex;
+    gap: 4px; /* Increased space between buttons for clarity */
+}
+
+.xp .window-btn {
+    width: 18px; /* Slightly larger buttons */
+    height: 18px;
+    border-radius: 3px; /* Square with slightly rounded corners */
+    border: 1px solid white; /* White border for separation */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.xp .window-btn.minimize-btn {
+    background-color: #3b6ea5; /* Blue minimize button */
+}
+
+.xp .window-btn.maximize-btn {
+    background-color: #3b6ea5; /* Blue maximize button */
+    color: #fff;
+}
+
+.xp .window-btn.close-btn {
+    background-color: #e81123; /* Red close button */
+    color: #fff;
+}
+
+.xp .window-btn svg {
+    fill: white; /* White icon for all button symbols */
+    color: #fff;
+}
+
+.xp .window-btn:hover {
+    background-color: #dcdcdc; /* Subtle hover effect */
+}
+
+/* Terminal (Linux) Theme */
+.terminal {
+    background-color: #1e1e1e;
+    color: #00ff00;
+    border: 2px solid #444;
+}
+
+.terminal .window-header {
+    background-color: #333;
+    color: #fff;
+    border-bottom: 1px solid #444;
+}
+
+.terminal .window-btn {
+    width: 16px;
+    height: 16px;
+    background: #444;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.terminal .window-btn svg {
+    fill: white; /* White icon for all button symbols */
+}
+
+/* Apple Theme */
+.apple {
+    background-color: #f2f2f5;
+    color: black;
+    border: 2px solid #aaa;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-radius: 10px;
+}
+
+.apple .window-header {
+    background-color: #d0d0d5;
+    color: #333;
+    border-radius: 10px 10px 0 0;
+}
+
+.apple .window-btn {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+
+.apple .window-btn.minimize-btn { background-color: #ffcc00; }
+.apple .window-btn.maximize-btn { background-color: #00cc00; }
+.apple .window-btn.close-btn { background-color: #ff3333; }
+
+/* Hapiuk Custom Theme */
+.hapiuk {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 2px solid #3a3a3a;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.hapiuk .window-header {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    padding: 8px 16px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hapiuk .window-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.hapiuk .window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.hapiuk .window-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.hapiuk .window-btn.minimize-btn { background-color: #f1c40f; }
+.hapiuk .window-btn.maximize-btn { background-color: #2ecc71; }
+.hapiuk .window-btn.close-btn { background-color: #e74c3c; }
+
+.hapiuk .window-btn:hover {
+    opacity: 0.8;
+}
+
+/* DOS Theme */
+.dos {
+    background-color: black;
+    color: white;
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    top: 0;
+    left: 0;
+    padding: 0; /* Remove extra padding to fully cover the viewport */
+    margin: 0; /* Ensure no margin that might cause cut-off */
+    box-sizing: border-box;
+    position: fixed; /* Fixed position to cover the viewport */
+    font-family: 'MS-DOS', 'Courier New', monospace; /* DOS-like font */
+    font-size: 16px; /* Slightly larger for readability */
+    display: flex;
+    flex-direction: column; /* Align items in column to mimic terminal layout */
+    justify-content: flex-start; /* Align content to the top */
+}
+
+.dos .console {
+    padding: 10px; /* Adjusted padding for visual alignment */
+    overflow-y: hidden; /* No scrollbars, classic DOS look */
+    flex: 1; /* Allow console to take remaining space */
+}
+
+.dos .input-line {
+    display: flex;
+    margin-top: 10px;
+    padding: 10px; /* Extra padding to mimic input line appearance */
+}
+
+.dos .prompt {
+    color: white;
+    margin-right: 10px;
+}
+
+.dos #console-input {
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    flex: 1;
+}
+
+.dos .window-header,
+.dos .window-controls,
+.dos .window-btn {
+    display: none; /* Hide window elements for DOS */
+}
+
+/* Resize handles */
+.resize-handle {
+    position: absolute;
+    background: transparent;
+    z-index: 1001; /* Ensure handles are above other elements */
+    pointer-events: auto; /* Allow events only when resizing */
+}
+
+/* Handles on edges */
+.resize-handle.top, .resize-handle.bottom {
+    height: 5px;
+    width: 100%;
+    cursor: ns-resize;
+}
+
+.resize-handle.left, .resize-handle.right {
+    width: 5px;
+    height: 100%;
+    cursor: ew-resize;
+}
+
+/* Handles on corners */
+.resize-handle.top-left, .resize-handle.top-right,
+.resize-handle.bottom-left, .resize-handle.bottom-right {
+    width: 10px;
+    height: 10px;
+    cursor: nwse-resize;
+}
+
+.resize-handle.top-left {
+    top: 0;
+    left: 0;
+}
+
+.resize-handle.top-right {
+    top: 0;
+    right: 0;
+}
+
+.resize-handle.bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.resize-handle.bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+.resize-handle.top {
+    top: 0;
+    left: 0;
+}
+
+.resize-handle.bottom {
+    bottom: 0;
+    left: 0;
+}
+
+.resize-handle.left {
+    top: 0;
+    left: 0;
+}
+
+.resize-handle.right {
+    top: 0;
+    right: 0;
+}
+
