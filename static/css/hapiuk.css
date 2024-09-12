@@ -7,74 +7,108 @@ body.hapiuk {
     background-attachment: fixed; /* Keeps the image fixed while scrolling */
 }
 
-/* Console Content */
+/* Console Output and Input Line Styles */
+/* Console Output and Input Line Styles */
+.console-line, .input-line {
+    display: flex;
+    align-items: center;
+    margin-top: -2.85em; /* No margin between lines */
+    margin-right: 5px; /* Remove padding to keep lines tight */
+    font-family: 'Roboto Mono', monospace;
+    color: #e0e0e0;
+    white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+    width: 100%; /* Full width to avoid expanding */
+}
+
+/* Ensure no extra space around the input and output */
 .console {
-    padding: 10px;
+    padding: 5px; /* Minimal padding */
     font-size: 14px;
     overflow-y: auto;
-    height: 400px;
-    background-color: #252525; /* Dark gray, not black */
-    color: #e0e0e0; /* Light gray font color for good contrast */
-    font-family: 'Roboto Mono', monospace; /* Modern monospace font */
+    background-color: #252525;
+    color: #e0e0e0;
+    font-family: 'Roboto Mono', monospace;
+    box-sizing: border-box; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+}
+
+/* Input Field Styles */
+#console-input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    flex: 1;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: #e0e0e0;
+    white-space: nowrap; /* Prevent wrapping in the input */
+}
+
+/* Console Content Styles */
+.console {
+    flex: 1;
+    padding: 5px 10px; /* Minimal padding inside the console */
+    font-size: 14px;
+    overflow-y: auto;
+    background-color: #252525;
+    color: #e0e0e0;
+    font-family: 'Roboto Mono', monospace;
+    box-sizing: border-box; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    white-space: pre-wrap; 
 }
 
 .console-window {
-    background-color: #252525; /* Dark gray, not black */
+    background-color: #252525;
+    color: #e0e0e0;
+}
+
+/* Console Input Field Styles */
+#console-input {
+    background: transparent; 
+    border: none; 
+    color: inherit; 
+    outline: none; 
+    flex: 1;
+    padding: 0; 
+    font-family: inherit; 
+    font-size: inherit; 
+    caret-color: #e0e0e0; 
+    word-wrap: break-word;
+    white-space: pre-wrap; 
+}
+
+/* Prefix all lines with $ */
+.prompt {
+    color: #e0e0e0; 
+    margin-right: 4px; 
+    font-family: inherit;
 }
 
 /* Window Header */
 .window-header {
-    background-color: #2b2b2b;
-    color: #f0f0f0;
-    padding: 8px 16px;
-    border-radius: 12px 12px 0 0;
+    padding: 5px 10px; /* Reduced padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #2b2b2b;
+    margin: 0;
 }
 
-/* Window Title */
 .window-title {
-    font-weight: bold;
-    font-size: 14px;
+    color: #e0e0e0;
 }
 
-/* Window Controls */
-.window-controls {
-    display: flex;
-    gap: 8px;
+.window-frame {
+    background-color: #252525;
+
 }
-
-.window-btn {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.2s;
-}
-
-.window-btn.minimize-btn { background-color: #f1c40f; }
-.window-btn.maximize-btn { background-color: #2ecc71; }
-.window-btn.close-btn { background-color: #e74c3c; }
-
-.window-btn:hover {
-    opacity: 0.8;
-}
-
-/* Taskbar Styles */
-.taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background-color: #333;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
+.window-content {
+    padding: 1em;
 }
 
 /* Start Button Styles */
@@ -100,12 +134,37 @@ body.hapiuk {
     background-color: #383838; /* Darken the button on hover */
     filter: brightness(0.9); /* Slightly dim the entire button including the logo */
 }
-/* Start Button Icon */
-#start-button-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Fill the entire button */
-    display: block; /* Ensure image fills the button */
+
+/* Window Control Style*/
+.window-btn {
+    width: 16px; /* Set a uniform size */
+    height: 16px; /* Same as width for a circular shape */
+    border-radius: 50%; /* Make the buttons circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Specific Colors for Each Button */
+.window-btn.minimize-btn { 
+    background-color: #f1c40f; /* Yellow for minimize */
+}
+
+.window-btn.maximize-btn { 
+    background-color: #2ecc71; /* Green for maximize */
+}
+
+.window-btn.close-btn { 
+    background-color: #e74c3c; /* Red for close */
+}
+
+/* Hover Effect */
+.window-btn:hover {
+    opacity: 0.8; /* Slightly dim the button on hover */
 }
 
 /* Start Menu Styles */
@@ -145,74 +204,6 @@ body.hapiuk {
 .start-menu button:hover {
     background-color: #4a4a4a; /* Lighten the tile on hover */
     transform: scale(1.02); /* Slight zoom effect on hover */
-}
-
-/* Icon inside the button */
-.start-menu button::before {
-    content: ''; /* Use CSS for icons if needed, otherwise keep empty */
-    display: inline-block;
-    width: 20px; /* Icon size */
-    height: 20px;
-    background-size: cover; /* Fit the icon inside */
-    background-repeat: no-repeat; /* Prevent repeat */
-    background-position: center; /* Center the icon */
-}
-
-/* Specific icons for different styles */
-.start-menu button:nth-child(1)::before { /* Windows 98 */
-    background-image: url('/static/images/win98-logo.png');
-}
-.start-menu button:nth-child(2)::before { /* Windows XP */
-    background-image: url('/static/images/xp-logo.png');
-}
-.start-menu button:nth-child(3)::before { /* Linux Terminal */
-    background-image: url('/static/images/terminal-logo.png');
-}
-.start-menu button:nth-child(4)::before { /* Hapiuk */
-    background-image: url('/static/images/hapiuk-logo.png');
-}
-.start-menu button:nth-child(5)::before { /* Apple */
-    background-image: url('/static/images/apple-logo.png');
-}
-
-/* Remove last margin on last button */
-.start-menu button:last-child {
-    margin-bottom: 0;
-}
-
-/* Minimized Windows Container */
-.minimized-windows-container {
-    display: flex;
-    align-items: center;
-    margin-left: 10px; /* Add spacing between the start button and minimized tabs */
-}
-
-/* Minimized Tab Button */
-.minimized-window-tab {
-    background: #444;
-    color: #fff;
-    border: 1px solid #555;
-    border-radius: 2px;
-    padding: 5px 10px;
-    margin-right: 5px; /* Spacing between minimized tabs */
-    cursor: pointer;
-    transition: background-color 0.2s, opacity 0.2s;
-}
-
-/* Active tab (slightly highlighted) */
-.minimized-window-tab.active {
-    background-color: #555; /* Slightly lighter shade for active */
-    opacity: 1;
-}
-
-/* Inactive tab (default dimmed look) */
-.minimized-window-tab.inactive {
-    background-color: #444; /* Dim color for inactive */
-    opacity: 0.7;
-}
-
-.minimized-window-tab:hover {
-    background-color: #666; /* Slight hover effect */
 }
 
 /* Taskbar Clock and Calendar Styles */
@@ -323,4 +314,3 @@ body.hapiuk {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-

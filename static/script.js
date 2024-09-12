@@ -116,13 +116,10 @@ function initResize(e) {
 }
 
 // Improved Drag Functionality
-dragElement(document.getElementById('console-window'));
-
 function dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    // Only make the header draggable
-    const header = document.getElementById('window-header');
+    const header = elmnt.querySelector('.window-header');
     if (header) {
         header.onmousedown = dragMouseDown;
     }
@@ -158,6 +155,67 @@ function dragElement(elmnt) {
         // Remove the event listeners when dragging stops
         document.onmouseup = null;
         document.onmousemove = null;
+    }
+}
+
+// Initialize dragging for the console specifically
+dragElement(document.getElementById('console-window'));
+
+// Apply drag functionality to dynamically created windows
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('window-header')) {
+        const windowElement = event.target.closest('.window-frame');
+        dragElement(windowElement); // Ensure draggable functionality is applied
+    }
+});
+// Function to create and open a new window
+function openWindow(contentType) {
+    // Check if a window of the same type is already open
+    const existingWindow = document.querySelector(`.window-frame[data-type="${contentType}"]`);
+    if (existingWindow) {
+        existingWindow.style.display = 'block'; // Bring the existing window to view
+        return; // Exit without creating a new window
+    }
+
+    // Create the window container
+    const windowContainer = document.createElement('div');
+    windowContainer.className = 'window-frame';
+    windowContainer.setAttribute('data-type', contentType); // Set the data attribute
+
+    // Create window structure with header and content based on type
+    windowContainer.innerHTML = `
+        <div class="window-header">
+            <span class="window-title">${contentType.charAt(0).toUpperCase() + contentType.slice(1)}</span>
+            <div class="window-controls">
+                <button class="window-btn minimize-btn" onclick="minimizeWindow(this.parentElement.parentElement.parentElement)">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect y="10" width="12" height="2" fill="black"></rect>
+                    </svg>
+                </button>
+                <button class="window-btn maximize-btn" onclick="toggleMaximizeWindow(this.parentElement.parentElement.parentElement)">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect x="1" y="1" width="10" height="10" fill="none" stroke="black" stroke-width="1.5"></rect>
+                    </svg>
+                </button>
+                <button class="window-btn close-btn" onclick="closeWindow(this.parentElement.parentElement.parentElement)">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="1.5"></line>
+                        <line x1="11" y1="1" x2="1" y2="11" stroke="black" stroke-width="1.5"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="window-content ${contentType}-panel">
+            ${getContentForType(contentType)} <!-- Dynamically load content based on type -->
+        </div>
+    `;
+
+    document.body.appendChild(windowContainer);
+    makeDraggable(windowContainer);
+
+    // Special handling for console type
+    if (contentType === 'console') {
+        initializeConsole(windowContainer.querySelector('.window-content')); // Initialize the console specifics
     }
 }
 
@@ -325,7 +383,6 @@ function sendCommandToServer(command) {
     });
 }
 
-
 function displayResponse(response) {
     const output = document.getElementById('output');
     if (response) {
@@ -373,8 +430,6 @@ function changeStyle(style) {
     console.log(`Applied class: ${style}`); 
 }
 
-
-
 // Handle the actions from the server response
 function handleAction(action) {
     if (action === 'clear') {
@@ -383,7 +438,6 @@ function handleAction(action) {
         const style = action.split('-')[1];
         changeStyle(style); // Use the changeStyle function to update the theme
     }
-
 }
 
 // JavaScript for Taskbar Start Button
@@ -487,4 +541,178 @@ function populateCalendar() {
     }
 }
 
+// Function to create and open a new window
+function openWindow(contentType) {
+    // Check if a window of the same type is already open
+    const existingWindow = document.querySelector(`.window-frame[data-type="${contentType}"]`);
+    if (existingWindow) {
+        existingWindow.style.display = 'block'; // Bring the existing window to view
+        return; // Exit without creating a new window
+    }
+
+    const windowContainer = document.createElement('div');
+    windowContainer.className = 'window-frame';
+    windowContainer.setAttribute('data-type', contentType); // Set the data attribute
+
+    // Create window structure with header and content based on type
+    windowContainer.innerHTML = `
+        <div class="window-header">
+            <span class="window-title">${contentType.charAt(0).toUpperCase() + contentType.slice(1)}</span>
+            <div class="window-controls">
+                <button class="window-btn minimize-btn" onclick="minimizeWindow(this.parentElement.parentElement.parentElement)">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect y="10" width="12" height="2" fill="black"></rect>
+                    </svg>
+                </button>
+                <button class="window-btn maximize-btn" onclick="toggleMaximizeWindow(this.parentElement.parentElement.parentElement)">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <rect x="1" y="1" width="10" height="10" fill="none" stroke="black" stroke-width="1.5"></rect>
+                    </svg>
+                </button>
+                <button class="window-btn close-btn" onclick="closeWindow(this.parentElement.parentElement.parentElement)">
+                    <svg width="12" height="12" viewBox="0 0 12 12">
+                        <line x1="1" y1="1" x2="11" y2="11" stroke="black" stroke-width="1.5"></line>
+                        <line x1="11" y1="1" x2="1" y2="11" stroke="black" stroke-width="1.5"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="window-content ${contentType}-panel">
+            ${getContentForType(contentType)} <!-- Dynamically load content based on type -->
+        </div>
+    `;
+
+    document.body.appendChild(windowContainer);
+    makeDraggable(windowContainer);
+}
+
+// Function to dynamically load content based on type
+function getContentForType(contentType) {
+    switch (contentType) {
+        case 'console':
+            return `
+                <div id="output">Welcome to the console. Type "help" to begin.</div>
+                <div class="input-line">
+                    <span class="prompt">$</span>
+                    <input type="text" id="console-input" autofocus>
+                </div>
+            `;
+        case 'contact':
+            return `<p>Contact Panel</p>`;
+        case 'about':
+            return `<p>About Panel</p>`;
+        case 'services':
+            return `<p>Services Panel</p>`;
+        case 'portfolio':
+            return `<p>Portfolio Panel</p>`;
+        // Add cases for other content types
+        default:
+            return `<p>Content not found.</p>`;
+    }
+}
+
+// Add draggable functionality
+function makeDraggable(elmnt) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    const header = elmnt.querySelector('.window-header');
+    if (header) {
+        header.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+
+// Minimize, Maximize, and Close window functions
+function minimizeWindow(windowElement) {
+    windowElement.style.display = 'none';
+
+    // Create a taskbar tab if it doesn't exist
+    const minimizedContainer = document.getElementById('minimized-windows-container');
+    const minimizedButton = document.createElement('button');
+    minimizedButton.className = 'minimized-window-tab inactive';
+    minimizedButton.innerText = windowElement.querySelector('.window-title').innerText;
+    minimizedButton.onclick = () => {
+        windowElement.style.display = 'block'; // Show window on click
+        minimizedButton.remove(); // Remove tab after restoring
+    };
+    minimizedContainer.appendChild(minimizedButton);
+}
+
+function maximizeWindow(windowElement) {
+    windowElement.style.position = 'fixed';
+    windowElement.style.top = '0';
+    windowElement.style.left = '0';
+    windowElement.style.width = '100vw';
+    windowElement.style.height = '100vh';
+    windowElement.style.zIndex = '1000';
+}
+
+function closeWindow(windowElement) {
+    document.body.removeChild(windowElement);
+}
+
+document.getElementById('console-input').addEventListener('keydown', function(event) {
+    const inputField = event.target;
+
+    if (event.key === 'Enter') {
+        const command = inputField.value.trim();
+        if (command) {
+            // Display the command in the console
+            displayResponse(`$ ${command}`); // Prefix user input with $
+
+            // Clear input after displaying
+            inputField.value = '';
+
+            // Process the command as needed
+            sendCommandToServer(command);
+        }
+    }
+});
+
+// Function to display console-like responses, ensuring all lines are prefixed with $
+function displayResponse(response) {
+    const output = document.getElementById('output');
+    if (response) {
+        const responseLine = document.createElement('div');
+        responseLine.textContent = `$ ${response}`; // Prefix with $
+        output.appendChild(responseLine);
+        output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+    }
+}
+
+// Function to initialize console with the welcome message
+function initializeConsole() {
+    const output = document.getElementById('output');
+    const welcomeMessage = document.createElement('div');
+    welcomeMessage.className = 'console-line'; // Ensure it matches console line style
+    welcomeMessage.innerHTML = `$ Welcome to the console. Type "help" to begin.`;
+    output.appendChild(welcomeMessage);
+}
+
+// Call initializeConsole when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initializeConsole);
 

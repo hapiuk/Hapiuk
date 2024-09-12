@@ -7,22 +7,52 @@ body.win98 {
     background-attachment: fixed;
 }
 
+/* Console Output and Input Line Styles */
+.console-line, .input-line {
+    display: flex;
+    align-items: center;
+    margin-top: -2em; /* Remove spacing between lines */
+    margin-right: 5px; /* Adjust for tightness */
+    font-family: 'MS Sans Serif', Arial, sans-serif; /* Classic Windows font */
+    color: #fff; /* Match console text color */
+    white-space: pre-wrap; /* Allow line wrapping */
+    width: 100%;
+}
+
 /* Console Content */
 .console {
-    padding: 10px;
+    flex: 1;
+    padding: 5px;
     font-size: 14px;
     overflow-y: auto;
-    height: 400px;
-    background-color: #000;
-    color: #fff; /* Dark font color */
-    font-family: 'MS Sans Serif', Arial, sans-serif; /* Classic Windows font */
+    background-color: #000; /* Black console background for retro look */
+    color: #fff; /* Classic white console text */
+    font-family: 'MS Sans Serif', Arial, sans-serif;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap; /* Preserve formatting */
 }
 
-.console-window {
-    background-color: #000; /* Classic light gray */
+/* Console Input Field Styles */
+#console-input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    flex: 1;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: #e0e0e0;
+    white-space: nowrap; /* Prevent wrapping in the input */
 }
 
-/* Window Header */
+/* Window Frame and Header */
+.window-frame {
+    background-color: #c0c0c0; /* Light gray classic frame */
+}
+
 .window-header {
     background-color: #000080; /* Classic Windows 98 blue */
     color: #fff;
@@ -31,13 +61,15 @@ body.win98 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 0; /* No rounded corners */
+    border-radius: 0;
+    margin: 0; /* Minimal spacing */
 }
 
 /* Window Title */
 .window-title {
     font-weight: bold;
     font-size: 13px;
+    color: #fff; /* Ensure title is readable */
 }
 
 /* Window Controls */
@@ -46,11 +78,15 @@ body.win98 {
     gap: 2px;
 }
 
+.window-content {
+    padding: 1em;
+}
+
 .window-btn {
     width: 18px;
     height: 18px;
     background: #ece9d8; /* Light gray for buttons */
-    border: 1px solid #999; /* 3D effect border */
+    border: 1px solid #999; /* 3D effect */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +96,7 @@ body.win98 {
 
 .window-btn.minimize-btn { background-color: #ece9d8; }
 .window-btn.maximize-btn { background-color: #ece9d8; }
-.window-btn.close-btn { background-color: #ff0000; } /* Classic red close button */
+.window-btn.close-btn { background-color: #ff0000; } /* Red for close */
 
 .window-btn:hover {
     background-color: #dcdcdc; /* Subtle hover effect */
@@ -73,38 +109,36 @@ body.win98 {
     left: 0;
     width: 100%;
     height: 40px;
-    background: #c0c0c0; /* Classic Windows 98 gray */
+    background: #c0c0c0; /* Classic gray */
     display: flex;
     align-items: center;
     padding: 0 10px;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.5);
-    border-top: 2px solid #fff; /* Subtle 3D effect */
+    border-top: 2px solid #fff; /* 3D effect */
 }
 
 /* Start Button Styles */
 #start-button {
-    background: #c0c0c0; /* Same gray as taskbar */
-    border: 1px solid #808080; /* Darker gray border */
+    background: #c0c0c0;
+    border: 1px solid #808080;
     cursor: pointer;
     display: flex;
     align-items: center;
     padding: 0 10px;
-    border-radius: 0; /* No rounded corners */
-    width: 80px; /* Wider to accommodate text */
+    border-radius: 0;
+    width: 80px; /* Wider for text */
     height: 36px;
     transition: background-color 0.2s;
-    background-image: url('/static/images/win98-logo.png'); /* Load logo */
-    background-size: 16px; /* Smaller icon size */
+    background-image: url('/static/images/win98-logo.png'); /* Logo */
+    background-size: 16px; /* Small icon */
     background-repeat: no-repeat;
-    background-position: 10px center; /* Align logo on the left */
+    background-position: 10px center; /* Align logo left */
 }
 
-/* Hover effect */
 #start-button:hover {
-    background-color: #a0a0a0; /* Slightly darker on hover */
+    background-color: #a0a0a0; /* Darker on hover */
 }
 
-/* Start Button Text */
 #start-button::after {
     content: 'Start';
     color: black;
@@ -119,21 +153,20 @@ body.win98 {
     position: absolute;
     bottom: 50px;
     left: 10px;
-    background-color: #f0f0f0; /* Light gray for the start menu */
+    background-color: #f0f0f0;
     border: 1px solid #999;
-    border-radius: 0; /* No rounded corners */
+    border-radius: 0;
     padding: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     width: 180px;
 }
 
-/* Start Menu Buttons */
 .start-menu button {
     width: 100%;
     padding: 5px;
     margin-bottom: 5px;
-    background-color: #c0c0c0; /* Same gray as the taskbar */
+    background-color: #c0c0c0;
     border: 1px solid #808080; /* 3D effect */
     border-radius: 0;
     color: #000;
@@ -148,75 +181,7 @@ body.win98 {
 }
 
 .start-menu button:hover {
-    background-color: #a0a0a0; /* Lighten on hover */
-}
-
-/* Icon inside the button */
-.start-menu button::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-/* Specific icons for different styles */
-.start-menu button:nth-child(1)::before {
-    background-image: url('/static/images/win98-logo.png');
-}
-.start-menu button:nth-child(2)::before {
-    background-image: url('/static/images/xp-logo.png');
-}
-.start-menu button:nth-child(3)::before {
-    background-image: url('/static/images/terminal-logo.png');
-}
-.start-menu button:nth-child(4)::before {
-    background-image: url('/static/images/hapiuk-logo.png');
-}
-.start-menu button:nth-child(5)::before {
-    background-image: url('/static/images/apple-logo.png');
-}
-
-/* Remove last margin on last button */
-.start-menu button:last-child {
-    margin-bottom: 0;
-}
-
-/* Minimized Windows Container */
-.minimized-windows-container {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-
-/* Minimized Tab Button */
-.minimized-window-tab {
-    background: #d4d0c8; /* Slightly lighter shade of gray */
-    color: #000;
-    border: 1px solid #808080;
-    border-radius: 0;
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s, opacity 0.2s;
-}
-
-/* Active tab (highlighted) */
-.minimized-window-tab.active {
-    background-color: #bdbdbd; /* Slightly darker for active */
-    opacity: 1;
-}
-
-/* Inactive tab (default look) */
-.minimized-window-tab.inactive {
-    background-color: #d4d0c8;
-    opacity: 0.8;
-}
-
-.minimized-window-tab:hover {
-    background-color: #c0c0c0; /* Subtle hover effect */
+    background-color: #a0a0a0; /* Lighter on hover */
 }
 
 /* Taskbar Clock and Calendar Styles */
@@ -298,7 +263,6 @@ body.win98 {
     justify-content: center;
 }
 
-/* Availability color codes */
 .calendar-date.available {
     background-color: #60a860;
 }
@@ -315,7 +279,6 @@ body.win98 {
     background-color: #c0c0c0;
 }
 
-/* Prevent calendar overflow */
 @media screen and (max-width: 768px) {
     .calendar-popup {
         left: 10px;

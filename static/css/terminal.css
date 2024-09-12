@@ -326,3 +326,40 @@ body.terminal {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.window-title {
+    color: #e0e0e0; /* To match the updated color scheme */
+}
+
+.window-frame {
+    background-color: #252525; /* Matches the console window background */
+}
+
+.window-content {
+    padding: 1em; /* Consistent padding for window content */
+}
+
+.console-line, .input-line {
+    display: flex;
+    align-items: center;
+     /* Adjust spacing between lines */
+    margin-right: 5px; /* Consistent padding to keep lines tight */
+    font-family: 'Roboto Mono', monospace; /* Match the console's font */
+    color: #e0e0e0; /* Consistent text color */
+    white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+    width: 100%; /* Ensure full width */
+}
+
+/* Input Field Styles */
+#console-input {
+    background: transparent;
+    border: none;
+    color: inherit;
+    outline: none;
+    flex: 1;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: #e0e0e0;
+    white-space: nowrap; /* Prevent wrapping in the input */
+}

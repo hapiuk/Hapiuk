@@ -52,6 +52,10 @@ body {
     opacity: 0.7; /* Dimmed for inactive */
 }
 
+.minimized-window-tab:hover {
+    background-color: #666; /* Slight hover effect */
+}
+
 /* Hover Effect for Taskbar and Buttons */
 #start-button:hover,
 .minimized-window-tab:hover {
@@ -59,7 +63,9 @@ body {
 }
 
 /* Console Window Styles */
-.console-window {
+.console-window,
+.draggable-window,
+.window-frame {
     display: flex;
     flex-direction: column; /* Use column direction to stack header and console */
     min-width: 800px;
@@ -73,16 +79,7 @@ body {
     left: 50px;
     overflow: hidden;
     transition: box-shadow 0.3s, border-radius 0.3s;
-}
-
-.console {
-    flex: 1; /* Allows the console to fill remaining space */
-    padding: 10px;
-    font-size: 14px;
-    overflow-y: auto;
-    background-color: #252525; /* Ensure background color is visible */
-    color: #e0e0e0;
-    font-family: 'Roboto Mono', monospace;
+    resize: both;
 }
 
 /* Fullscreen Mode for Console - Ensures Taskbar Remains Visible */
@@ -97,16 +94,103 @@ body {
     background-color: #252525; /* Ensure console background remains consistent */
 }
 
-
 .console-window.dragging {
     transition: none; /* Disable transitions during drag */
     box-shadow: none; /* Disable box-shadow during drag */
     will-change: transform, left, top; /* Optimize dragging performance */
 }
 
+/* Window Header and Controls */
+.window-header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    cursor: move;
+    user-select: none;
+}
+
+.window-title {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.window-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: background-color 0.2s;
+}
+
+.window-btn:hover {
+    background-color: #555;
+}
+
+.window-btn.minimize-btn { background-color: #f1c40f; }
+.window-btn.maximize-btn { background-color: #2ecc71; }
+.window-btn.close-btn { background-color: #e74c3c; }
+
+/* Console and Contact Content Panels */
+.console-panel {
+    padding: 10px;
+    height: calc(100% - 40px); /* Adjust for header */
+    overflow-y: auto;
+    background-color: #252525; /* Console specific background */
+    color: #e0e0e0; /* Light text color for good contrast */
+    font-family: 'Roboto Mono', monospace; /* Modern monospace font */
+}
+
+/* Resize handles */
+.resize-handle {
+    position: absolute;
+    background: transparent;
+    z-index: 1001; /* Ensure handles are above other elements */
+    pointer-events: auto; /* Allow events only when resizing */
+}
+
+.resize-handle.top, .resize-handle.bottom {
+    height: 5px;
+    width: 100%;
+    cursor: ns-resize;
+}
+
+.resize-handle.left, .resize-handle.right {
+    width: 5px;
+    height: 100%;
+    cursor: ew-resize;
+}
+
+.resize-handle.top-left, .resize-handle.top-right,
+.resize-handle.bottom-left, .resize-handle.bottom-right {
+    width: 10px;
+    height: 10px;
+    cursor: nwse-resize;
+}
+
+/* DOS Fullscreen */
+.dos-fullscreen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: none;
+    background-color: black;
+}
+
 /* Media query for mobile devices */
 @media (max-width: 768px) {
-    .console-window {
+    .console-window,
+    .draggable-window,
+    .window-frame {
         top: 5%; /* Adjust position for better fit */
         left: 5%; /* Adjust position for better fit */
         width: 90vw; /* Set width to fit within the viewport */
@@ -118,8 +202,9 @@ body {
         padding: 8px; /* Adjust padding for smaller screens */
     }
 
-    .console {
-        height: calc(80vh - 60px); /* Adjust console height considering header and input */
+    .console,
+    .contact-panel {
+        height: calc(80vh - 60px); /* Adjust height considering header and input */
     }
 
     .input-line {
@@ -133,137 +218,4 @@ body {
     .taskbar {
         height: 50px; /* Adjust taskbar height for smaller screens */
     }
-}
-
-.window-header {
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: move;
-    user-select: none;
-}
-
-.window-title {
-    margin-left: 10px;
-}
-
-.window-controls {
-    display: flex;
-}
-
-.window-btn {
-    background: none;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.window-btn:hover {
-    background-color: #555;
-}
-
-.console {
-    padding: 10px;
-    font-size: 14px;
-    overflow-y: auto;
-    height: 400px;
-}
-
-.input-line {
-    display: flex;
-    margin-top: 10px;
-}
-
-.prompt {
-    margin-right: 10px;
-}
-
-#console-input {
-    background: transparent;
-    border: none;
-    color: inherit;
-    outline: none;
-    flex: 1;
-}
-
-/* Resize handles */
-.resize-handle {
-    position: absolute;
-    background: transparent;
-    z-index: 1001; /* Ensure handles are above other elements */
-    pointer-events: auto; /* Allow events only when resizing */
-}
-
-/* Handles on edges */
-.resize-handle.top, .resize-handle.bottom {
-    height: 5px;
-    width: 100%;
-    cursor: ns-resize;
-}
-
-.resize-handle.left, .resize-handle.right {
-    width: 5px;
-    height: 100%;
-    cursor: ew-resize;
-}
-
-/* Handles on corners */
-.resize-handle.top-left, .resize-handle.top-right,
-.resize-handle.bottom-left, .resize-handle.bottom-right {
-    width: 10px;
-    height: 10px;
-    cursor: nwse-resize;
-}
-
-.resize-handle.top-left {
-    top: 0;
-    left: 0;
-}
-
-.resize-handle.top-right {
-    top: 0;
-    right: 0;
-}
-
-.resize-handle.bottom-left {
-    bottom: 0;
-    left: 0;
-}
-
-.resize-handle.bottom-right {
-    bottom: 0;
-    right: 0;
-}
-
-.resize-handle.top {
-    top: 0;
-    left: 0;
-}
-
-.resize-handle.bottom {
-    bottom: 0;
-    left: 0;
-}
-
-.resize-handle.left {
-    top: 0;
-    left: 0;
-}
-
-.resize-handle.right {
-    top: 0;
-    right: 0;
-}
-
-/* Additional CSS in base.css */
-.dos-fullscreen {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border: none;
-    background-color: black;
 }

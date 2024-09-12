@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="console" id="console">
-            <div id="output">Welcome to the console. Type "help" to begin.</div>
+            <div id="output"></div>
             <div class="input-line">
                 <span class="prompt">$</span>
                 <input type="text" id="console-input" autofocus>
@@ -61,12 +61,11 @@
             <span class="start-text"></span>
         </button>
         <div id="start-menu" class="start-menu">
-            <!-- Menu items for different styles -->
-            <button onclick="changeStyle('win98')">Windows 98</button>
-            <button onclick="changeStyle('xp')">Windows XP</button>
-            <button onclick="changeStyle('terminal')">Linux Terminal</button>
-            <button onclick="changeStyle('hapiuk')">Hapiuk</button>
-            <button onclick="changeStyle('apple')">Apple</button>
+            <!-- Links to different website sections -->
+            <button onclick="openWindow('portfolio')">Portfolio</button>
+            <button onclick="openWindow('about')">About</button>
+            <button onclick="openWindow('services')">Services</button>
+            <button onclick="openWindow('contact')">Contact</button>
         </div>
         <div class="minimized-windows-container" id="minimized-windows-container"></div>
         <!-- Taskbar Clock -->
@@ -95,9 +94,6 @@
             </div>
         </div>
     </div>
-
-
-
     <script src="/static/script.js"></script>
 </body>
 </html>
